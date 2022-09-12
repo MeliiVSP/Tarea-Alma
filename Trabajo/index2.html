@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|Rubik:300,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<title background="red">SUBNETEO</title>
+
+<script language="javascript" type="text/javascript">
+function calcula(){
+var moct1, moct2, moct3, moct4, mnredes, mnhosts, mclase, merror;
+var nbits, wmoct1, wmoct2, wmoct3, wmoct4, i;
+
+//ejer
+moct1 = parseInt(document.getElementById('oct1').value);
+moct2 = parseInt(document.getElementById('oct2').value);
+moct3 = parseInt(document.getElementById('oct3').value);
+moct4 = parseInt(document.getElementById('oct4').value);
+mnredes = parseInt(document.getElementById('nredes').value);
+
+/* inicializamos var, oct=octetos*/
+mclase = ""
+merror = false;
+if ((moct1 >= 1) && (moct1 <= 126)) mclase="A";
+if ((moct1 >= 128) && (moct1 <= 191)) mclase="B";
+if ((moct1 >= 192) && (moct1 <= 223)) mclase="C";
+if ((moct1 >= 224) && (moct1 <= 239)) mclase="D";
+if ((moct1 >= 240) && (moct1 <= 255)) mclase="E";
+if (mclase == ""){
+alert ("ERROR CON CON EL TIPO DE RED");
+document.getElementById('oct1').focus();
+merror = true;
+}
+if (mnredes ==0){
+alert ("ERROR CON CON EL NÚMERO DE SUBREDES");
+document.getElementById('nredes').focus();
+merror = true;
+}
+document.getElementById('tipoRed').value = mclase;
+
+// Ndebits
+
+nbits = 0
+while (Math.pow(2,nbits) < mnredes){
+nbits++
+}
+
+// máscara en x  tipo de red
+
+switch(mclase){
+case 'A':
+
+// Máscara pordef
+wmoct1 = 255;
+wmoct2 = 0;
+wmoct3 = 0;
+wmoct4 = 0;
+
+// la clase+subneting
+document.getElementById('mbits').value = 8 + nbits;
+
+// tiene 1, 2 o 3 bytes
+if (nbits >= 16){
+
+// necesitamos 2 bytes para las subredes
+nbits = nbits - 16;
+wmoct2 = 255;
+wmoct3 = 255;
+
+// el subneting
+wmoct4 = Math.pow(2,nbits) - 1;
+
+// desplazamiento
+wmoct4 = wmoct4 << (8-nbits);
+
+}
+else {
+if (nbits >= 8){
+
+
+
+//  subredes
+nbits = nbits - 8;
+wmoct2 = 255;
+wmoct4 = 0;
+
+//bits 
+wmoct3 = Math.pow(2,nbits) - 1;
+
+wmoct3 = wmoct3 << (8-nbits);
+
+}
+else{
+
+// es como el caso C
+wmoct2 = Math.pow(2,nbits) - 1;
+wmoct2 = wmoct2 << (8-nbits);
+wmoct3 = 0;
+wmoct4 = 0;
+}
+
+}
+break;
+case 'B':
+// Máscara por defecto 
+wmoct1 = 255;
+wmoct2 = 255;
+wmoct3 = 0;
+wmoct4 = 0;
+
+document.getElementById('mbits').value = 16 + nbits;
+
+if (nbits >= 8){
+nbits = nbits - 8;
+wmoct3 = 255;
+wmoct4 = Math.pow(2,nbits) - 1;
+wmoct4 = wmoct4 << (8-nbits);
+
+}
+else{
+// el caso C
+wmoct3 = Math.pow(2,nbits) - 1;
+wmoct3 = wmoct3 << (8-nbits);
+}
+
+break;
+case 'C':
+wmoct1 = 255;
+wmoct2 = 255;
+wmoct3 = 255;
+wmoct4 = 0;
+document.getElementById('mbits').value = 24 + nbits;
+wmoct4 = Math.pow(2,nbits) - 1;
+wmoct4 = wmoct4 << (8-nbits);
+
+case 'D':
+wmoct1 = 0;
+wmoct2 = 0;
+wmoct3 = 0;
+wmoct4 = 0;
+
+document.getElementById('mbits').value = 0 + nbits;
+wmoct4 = Math.pow(2,nbits) - 1;
+wmoct4 = wmoct4 << (8-nbits);
+
+case 'E':
+wmoct1 = 0;
+wmoct2 = 0;
+wmoct3 = 0;
+wmoct4 = 0;
+document.getElementById('mbits').value = 0 + nbits;
+wmoct4 = Math.pow(2,nbits) - 1;
+wmoct4 = wmoct4 << (8-nbits);
+
+
+break;
+}
+document.getElementById('moct1').value = moct1;
+document.getElementById('moct2').value = moct2;
+document.getElementById('moct3').value = moct3;
+document.getElementById('moct4').value = moct4;
+
+
+}
+</script>
+</head>
+
+<body>
+<h1 align="center">SUBNETEO</h1>
+Direccion de red: <input type="text" maxlength="3" size="3" id="oct1" />.<input type="text" maxlength="3" size="3" id="oct2"/>.<input type="text" maxlength="3" size="3" id="oct3"/>.<input type="text" maxlength="3" size="3" id="oct4"/><br /><br />
+
+Subredes Requeridas:<input type="text" maxlength="8" size="8" id="nredes"/><br /><br />
+
+<input type="button" align="center" background="pink" value="CALCULAR" onclick="calcula()">
+<hr>
+
+<p>
+Red Clase: <input type="text" maxlength="3" size="3" readonly="true" id="tipoRed" /><br/> 
+</p>
+
+
+Mascara: <input type="text" maxlength="3" size="3" id="moct1" readonly="true"/>.<input type="text" maxlength="3" size="3" id="moct2" readonly="true"/>.<input type="text" maxlength="3" size="3" id="moct3" readonly="true"/>.<input type="text" maxlength="3" size="3" id="moct4" readonly="true"/> / <input type="text" maxlength="3" size="3" id="mbits" readonly="true"/> <br />
+
+</body>
+</html>

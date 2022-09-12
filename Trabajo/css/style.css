@@ -1,0 +1,30 @@
+
+body{
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Rubik', sans-serif;
+    background-color: rgb(138, 154, 190);
+   text-align: start;
+    text-decoration-color:rgb(3, 24, 75);
+    text-shadow: 0ch;
+}
+
+button {
+    cursor: pointer;
+    color: rgb(216, 207, 128);
+}
+
+input, input::placeholder {
+    font-family: 'IBM Plex Mono', monospace;
+    color:rgb(3, 24, 75)
+} 
+
+input {
+    width: 8%;
+    height: 22px;
+    color: rgba(12, 2, 39, 0.938);
+    border: 1px solid #26054b;
+    border-radius: 6px;
+    padding: 0 24px;
+    margin: 12px 0;
+    background-color: #7ea9f88e;
+}
