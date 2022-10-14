@@ -1,0 +1,77 @@
+body{
+
+background-image: url("https://i.pinimg.com/originals/bf/7d/e9/bf7de96d43f3c415af1ad81b1f1f527e.jpg");
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: 100% 100%;
+}
+
+font{
+
+    color: rgb(15, 10, 159);
+}
+
+h1{
+    font-family:cursive;
+    text-shadow: 7px 4px 5px #B8C0FF;
+    color: #8578aa;
+    font-size: 48px;
+    text-align: center;
+}
+
+#campotexto{
+
+    background-color: #c18cf9;
+    border-radius: 12px;
+    border-color: #8578aa;
+    font-size: 32px;
+    color: #6071d7;    
+}
+#campotexto::placeholder{
+    color: rgb(93, 1, 136);
+}
+
+#boton{
+
+    border-radius: 12px;
+    border-color: rgb(180, 40, 200);
+    background-color: rgb(194, 81, 209);
+    color: white;
+    padding: 7.5px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 28px;
+}
+    #boton:hover{
+        background-color: #76a7f4;
+    }
+
+table{
+
+    background-color: rgb(215, 116, 158);
+    border: 2px solid rgb(175, 11, 98);
+
+    text-align: center;
+    font-size: 60px;
+    
+}
+th, td {
+    width: 25%;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid #000;
+
+}
+
+#consulta{
+    font-family:cursive;
+    width: 25%;
+    font-size: 25px;
+    text-shadow: 7px 4px 5px rgb(215, 116, 158);
+    font-size: 44px;
+    color: rgb(175, 11, 98);
+}
+.texto{
+    text-align: center;
+}
